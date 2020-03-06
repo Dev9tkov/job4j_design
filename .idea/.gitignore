@@ -1,2 +1,20 @@
 # Default ignored files
 /workspace.xml
+
+# java specific
+*.class
+
+# intellij
+*.eml
+*.iml
+*.ipr
+*.iws
+.*.sw?
+.idea
+
+# paulp script
+/.lib/
+
+build
+.gradle
+*.pid

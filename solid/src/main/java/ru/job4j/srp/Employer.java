@@ -8,6 +8,7 @@ import java.util.Objects;
  * @since 06.03.2020
  */
 public class Employer {
+
     private String name;
     private Calendar hired;
     private Calendar fired;

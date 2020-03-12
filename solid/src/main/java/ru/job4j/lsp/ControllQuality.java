@@ -1,6 +1,7 @@
 package ru.job4j.lsp;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,5 +24,37 @@ public class ControllQuality {
             }
         }
         return rsl;
+    }
+
+    /**
+     * Достает все продукты из всех хранилищ
+     * @return лист всех продуктов из всех хранилищ
+     */
+    private List<Food> saveList() {
+        List<Food> saveList = new ArrayList<>();
+        for (Storage val : storages) {
+            saveList.addAll(val.getFoods());
+        }
+        return saveList;
+    }
+
+    /**
+     * Распределяет продукты по всем хранилищам. Использует метод add     *
+     * @param list Food
+     * @throws ParseException
+     */
+    private void addAllFoods(List<Food> list) throws ParseException {
+        for (Food val : list) {
+            add(val);
+        }
+    }
+
+    /**
+     * Извлекает все продукты и перераспределяет заново
+     * @throws ParseException
+     */
+    public void resort() throws ParseException {
+        List<Food> tmpList = saveList();
+        addAllFoods(tmpList);
     }
 }

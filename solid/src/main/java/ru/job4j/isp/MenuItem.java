@@ -1,5 +1,6 @@
 package ru.job4j.isp;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -25,5 +26,10 @@ public class MenuItem {
 
     public List<String> getItems() {
         return items;
+    }
+
+    @Override
+    public String toString() {
+        return "name='" + name;
     }
 }

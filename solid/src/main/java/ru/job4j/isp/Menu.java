@@ -67,34 +67,13 @@ public class Menu implements CreateMenu, ExecuteAction, ShowMenu {
 
     /**
      * Вывод меню на консоль
-     * По кол-ву точек определяет сколько раз нужно проставить "---"
      * @param menu меню
      */
     @Override
     public void show(Set<String> menu) {
-        String cherta = "---";
         for (String val : menu) {
-            int chert = checkDot(val) - 1;
-            for (int i = 0; i < chert; i++) {
-                System.out.print(cherta);
-            }
             System.out.println(val);
         }
-    }
-
-    /**
-     * Считает кол-во точек в имени меню, побочный метод
-     * @param name
-     * @return
-     */
-    private Integer checkDot(String name) {
-        int rsl = 0;
-        for (Character val : name.toCharArray()) {
-            if (val.equals('.')) {
-                rsl++;
-            }
-        }
-        return rsl;
     }
 
     public static void main(String[] args) {
@@ -108,6 +87,7 @@ public class Menu implements CreateMenu, ExecuteAction, ShowMenu {
         Map<String, MenuItem> stringMenuItem = list.stream()
                 .collect(Collectors.toMap(MenuItem::getName, Function.identity()));
         Menu menu = new Menu(list);
-        menu.show(menu.create(stringMenuItem));
+        Set<String> menuSet = menu.create(stringMenuItem);
+        menu.show(menuSet);
     }
 }

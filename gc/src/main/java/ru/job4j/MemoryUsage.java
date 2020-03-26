@@ -4,10 +4,10 @@ package ru.job4j;
  * @author Ilya Devyatkov
  * @since 21.03.2020
  */
-public class User {
+public class MemoryUsage {
     public String name;
 
-    public User(String name) {
+    public MemoryUsage(String name) {
         this.name = name;
     }
 
@@ -27,12 +27,12 @@ public class User {
     }
 
     public static void main(String[] args) {
-        User user = new User("Name");
+        MemoryUsage user = new MemoryUsage("Name");
         user.info();
         int index = 0;
         while (index < 315970) {
             index++;
-            user = new User("Name " + index);
+            user = new MemoryUsage("Name " + index);
         }
     }
 }

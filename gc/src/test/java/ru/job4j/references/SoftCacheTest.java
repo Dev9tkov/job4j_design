@@ -19,7 +19,8 @@ public class SoftCacheTest {
         SoftCache softCache = new SoftCache(path);
         String expected =
                 softCache.getText("Adress.txt");
-        String result = "Perm, Moskva, Novosibirsk";
+        String result = String.join(System.lineSeparator(),
+                "Perm", "Moskva", "Novosibirsk");
         assertThat(result, is (expected));
     }
     @Test
@@ -27,7 +28,8 @@ public class SoftCacheTest {
         SoftCache softCache = new SoftCache(path);
         String expected =
                 softCache.getText("Name.txt");
-        String result = "Kostya, Ilya, Maksim, Dima";
+        String result = String.join(System.lineSeparator(),
+                "Kostya", "Ilya", "Maksim","Dima");
         assertThat(result, is (expected));
     }
 }

@@ -36,9 +36,9 @@ public class WeakCache extends AbstractCache {
     @Override
     String getText(String name) {
         String result;
-        if (weakCache.isEmpty()) {
+        if (!weakCache.containsKey(name)) {
             try (BufferedReader reader = new BufferedReader(new FileReader(new File(path, name)))) {
-                StringJoiner joiner = new StringJoiner(", ");
+                StringJoiner joiner = new StringJoiner(System.lineSeparator());
                 reader.lines().forEach(joiner::add);
                 weakCache.put(name, new WeakReference<>(joiner.toString()));
             } catch (IOException e) {

@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.lang.ref.SoftReference;
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -33,9 +32,9 @@ public class SoftCache extends AbstractCache {
     @Override
     String getText(String name) {
         String result;
-        if (softCache.isEmpty()) {
+        if (!softCache.containsKey(name)) {
             try (BufferedReader reader = new BufferedReader(new FileReader(new File(path, name)))) {
-                StringJoiner joiner = new StringJoiner(", ");
+                StringJoiner joiner = new StringJoiner(System.lineSeparator());
                 reader.lines().forEach(joiner::add);
                 softCache.put(name, new SoftReference<>(joiner.toString()));
             } catch (IOException e) {

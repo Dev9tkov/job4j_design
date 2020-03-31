@@ -18,12 +18,12 @@ public class SoftCache extends AbstractCache {
     /**
      * Путь к файлу
      */
-    private String path;
+    private final String path;
 
     /**
      * Имя файла - содержимое
      */
-    Map<String, SoftReference<String>> softCache = new HashMap<>();
+    private final Map<String, SoftReference<String>> softCache = new HashMap<>();
 
     public SoftCache(String path) {
         this.path = path;
@@ -33,15 +33,19 @@ public class SoftCache extends AbstractCache {
     String getText(String name) {
         String result;
         if (!softCache.containsKey(name)) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(new File(path, name)))) {
-                StringJoiner joiner = new StringJoiner(System.lineSeparator());
-                reader.lines().forEach(joiner::add);
-                softCache.put(name, new SoftReference<>(joiner.toString()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            putInMap(name);
         }
         result = softCache.get(name).get();
         return result;
+    }
+
+    private void putInMap(String name) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(path, name)))) {
+            StringJoiner joiner = new StringJoiner(System.lineSeparator());
+            reader.lines().forEach(joiner::add);
+            softCache.put(name, new SoftReference<>(joiner.toString()));
+        } catch (IOException e) {
+            LOG.error(e);
+        }
     }
 }
